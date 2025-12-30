@@ -9,9 +9,9 @@ const rateLimit = require('express-rate-limit');
 // RATE LIMITER - DISTRIBUTED ACROSS INSTANCES
 // ============================================
 const loginLimiter = rateLimit({
-  windowMs: 1 * 60 * 1000, // 1 minutes
+  windowMs: 15 * 60 * 1000, // 15 minutes
   max: 5, // Max 5 login attempts per 1 minutes
-  message: { error: 'Too many login attempts. Please try again after 1 minutes.' },
+  message: { error: 'Too many login attempts. Please try again after 15 minutes.' },
   standardHeaders: true,
   legacyHeaders: false,
   skipSuccessfulRequests: true, // Only count failed attempts

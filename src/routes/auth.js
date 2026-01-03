@@ -4,6 +4,7 @@ const User = require("../models/user");
 const validateSignUpData = require("../utils/validations");
 const bcrypt = require("bcrypt");
 const rateLimit = require('express-rate-limit');
+const sendNotificationEvent = require("../services/notificationProducer");
 
 // ============================================
 // RATE LIMITER - DISTRIBUTED ACROSS INSTANCES
@@ -75,6 +76,18 @@ authRouter.get("/signIn", loginLimiter, async (req, res) => {
     } catch(err) {
         res.status(404).send("ERROR! " + err.message);
     }
+});
+
+authRouter.post("/sendNotification", async (req, res) => {
+  // login logic here...
+
+  await sendNotificationEvent({
+    userId: "USER123",
+    type: "LOGIN_SUCCESS",
+    message: "You logged in successfully"
+  });
+
+  res.json({ success: true });
 });
 
 module.exports = authRouter;
